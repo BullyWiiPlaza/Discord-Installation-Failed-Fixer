@@ -118,7 +118,7 @@ int main()
     try
     {
         SetConsoleOutputCP(1252); // Allow the copyright symbol to be displayed correctly
-        std::cout << "Discord Installation Failed Fixer \xa9 2021 BullyWiiPlaza Productions" << std::endl;
+        std::cout << "Discord Installation Failed Fixer v1.0 \xa9 2021 BullyWiiPlaza Productions" << std::endl;
         Sleep(2000);
         std::cout << "Terminating running Discord instances..." << std::endl;
         terminate_processes(L"Discord.exe");
