@@ -188,7 +188,8 @@ int main()
         std::cout << "All operations completed successfully!" << std::endl;
         std::cout << "Press any key to exit..." << std::endl;
     	
-        getchar();
+        const auto entered_character = getchar();
+        UNREFERENCED_PARAMETER(entered_character);
     }
 	catch (std::exception &exception)
 	{
