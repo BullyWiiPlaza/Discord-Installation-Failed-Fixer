@@ -104,12 +104,10 @@ std::string download_file_contents(const std::string& server_url)
 
 void write_string_to_file(const std::filesystem::path& file_path, const std::string& file_contents)
 {
-    std::ofstream file_writer(file_path.string(), std::ios_base::binary);
-    if (!file_writer.is_open())
-    {
-        throw std::runtime_error("Could not open file "
-            + file_path.string() + " for writing");
-    }
+    // https://stackoverflow.com/a/3180285/3764804
+    std::ofstream file_writer;
+    file_writer.exceptions(std::ofstream::failbit | std::ofstream::badbit); // Enable exceptions on failure
+    file_writer.open(file_path.string(), std::ios_base::binary);
     file_writer << file_contents;
 }
 
@@ -118,7 +116,7 @@ int main()
     try
     {
         SetConsoleOutputCP(1252); // Allow the copyright symbol to be displayed correctly
-        std::cout << "Discord Installation Failed Fixer v1.0 \xa9 2021 BullyWiiPlaza Productions" << std::endl;
+        std::cout << "Discord Installation Failed Fixer v1.1 \xa9 2021 - 2022 BullyWiiPlaza Productions" << std::endl;
         Sleep(2000);
         std::cout << "Terminating running Discord instances..." << std::endl;
         terminate_processes(L"Discord.exe");
@@ -188,12 +186,12 @@ int main()
         std::cout << "All operations completed successfully!" << std::endl;
         std::cout << "Press any key to exit..." << std::endl;
     	
-        const auto entered_character = getchar();
-        UNREFERENCED_PARAMETER(entered_character);
+        getchar();
     }
-	catch (std::exception &exception)
+	catch (const std::exception &exception)
 	{
         std::cerr << "An unhandled exception occurred: " << exception.what() << std::endl;
+        return EXIT_FAILURE;
 	}
 	
     return EXIT_SUCCESS;
